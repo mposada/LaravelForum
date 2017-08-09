@@ -8,8 +8,6 @@
 
 namespace Tests\Feature;
 
-use App\Reply;
-use App\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -24,7 +22,7 @@ class ReadThreadsTest extends TestCase {
     public function setUp()
     {
         parent::setUp();
-        $this->thread = factory(Thread::class)->create();
+        $this->thread = create('App\Thread');
     }
     /**
      * for this test use sqlite connection.
@@ -48,7 +46,7 @@ class ReadThreadsTest extends TestCase {
     public function a_user_can_read_replies_that_are_associated_with_a_thread()
     {
         // Given we have a thread
-        $reply = factory(Reply::class)->create(['thread_id' => $this->thread->id]);
+        $reply = create('App\Reply', ['thread_id' => $this->thread->id]);
         // and that thread includes replies
         // When we visit a thread page
         $response = $this->get('/threads/'.$this->thread->id);

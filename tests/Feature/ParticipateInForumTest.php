@@ -2,9 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Reply;
-use App\Thread;
-use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -29,14 +26,11 @@ class ParticipateInForumTest extends TestCase
          * Then their reply should be visible on the page...
          */
 
-        // 1. Create a user
-        $user = factory(User::class)->create();
-        // 2. Sign in he user
-        $this->be($user);
+        $this->signIn();
         // 3. Create a thread
-        $thread = factory(Thread::class)->create();
+        $thread = create('App\Thread');
         // 4. create a reply
-        $reply = factory(Reply::class)->make(['user_id' => $user->id]);
+        $reply = make('App\Reply');
         // 5. add the reply to the thread
         $this->post($thread->path() . '/replies/', $reply->toArray());
         // 6. now the reply should be visible

@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Reply;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -23,7 +22,7 @@ class ReplyTest extends TestCase
     /** @test **/
     public function is_has_an_owner()
     {
-        $reply = factory(Reply::class)->create();
+        $reply = create('App\Reply');
         $this->assertInstanceOf(User::class, $reply->owner);
     }
 }
